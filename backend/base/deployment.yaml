@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moadong
+  labels:
+    app: moadong
+spec:
+  selector:
+    matchLabels:
+      app: moadong
+  template:
+    metadata:
+      labels:
+        app: moadong
+    spec:
+      containers:
+        - name: moadong
+          image: moadong/moadong-dev
+          ports:
+            - containerPort: 8080
