@@ -19,3 +19,9 @@ spec:
           ports:
             - containerPort: 8080
             - containerPort: 8082
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8082
+            initialDelaySeconds: 5
+            periodSeconds: 5
