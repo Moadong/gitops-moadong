@@ -19,4 +19,4 @@ patches:
 images:
 - name: moadong/moadong-dev
   newName: moadong/moadong-dev
-  newTag: aa1563d
+  newTag: 90d0702
