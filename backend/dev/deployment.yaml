@@ -1,0 +1,7 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moadong
+  namespace: moadong-dev
+spec:
+  replicas: 1
