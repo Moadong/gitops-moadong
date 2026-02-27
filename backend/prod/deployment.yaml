@@ -4,3 +4,7 @@ metadata:
   name: moadong
 spec:
   replicas: 4
+  template:
+    spec:
+      imagePullSecrets:
+        - name: moadong-release
