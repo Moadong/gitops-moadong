@@ -17,6 +17,6 @@ patches:
       name: moadong-ingress
 
 images:
-  - name: moadong/moadong-release
+  - name: moadong/moadong
     newName: moadong/moadong-release
     newTag: latest

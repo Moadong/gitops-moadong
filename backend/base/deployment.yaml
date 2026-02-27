@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: moadong
-          image: moadong/moadong-dev
+          image: moadong/moadong
           ports:
             - containerPort: 8080
             - containerPort: 8082
