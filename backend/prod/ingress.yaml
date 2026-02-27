@@ -7,7 +7,6 @@ metadata:
 spec:
   tls:
     - hosts:
-        - "api.moadong.com"
         - "*.moadong.com"
       secretName: moadong-com-tls-secret
   rules:
