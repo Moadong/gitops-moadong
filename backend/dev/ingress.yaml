@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: moadong-ingress
+  annotations:
+    cert-manager.io/issuer: cloudflare-issuer-staging
+spec:
+  tls:
+    - hosts:
+        - "yourun.shop"
+        - "*.yourun.shop"
+      secretName: yourun-shop-tls-secret
+  rules:
+    - host: yourun.shop
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: moadong-service
+                port:
+                  number: 8080
