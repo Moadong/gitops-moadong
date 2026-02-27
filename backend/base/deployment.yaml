@@ -25,3 +25,9 @@ spec:
               port: 8082
             initialDelaySeconds: 5
             periodSeconds: 5
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              memory: "1Gi"
