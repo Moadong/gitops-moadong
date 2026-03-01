@@ -9,10 +9,10 @@ spec:
   project: default
   sources:
     - repoURL: https://dl.cloudsmith.io/public/infisical/helm-charts/helm/charts/
-      chart: infisical-operator
+      chart: infisical-helm-charts
       targetRevision: 0.10.25
       helm:
-        releaseName: infisical-operator
+        releaseName: secrets-operator
         valueFiles:
           - $values/infra/infisical-operator/values.yml
     - repoURL: https://github.com/Moadong/gitops-moadong.git
