@@ -25,6 +25,9 @@ spec:
               port: 8082
             initialDelaySeconds: 5
             periodSeconds: 5
+          envFrom:
+            - secretRef:
+                name: moadong-managed-secret
           resources:
             requests:
               cpu: "100m"
