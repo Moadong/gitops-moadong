@@ -3,27 +3,27 @@ kind: Kustomization
 namespace: moadong-dev
 
 resources:
-  - ../base
-  - issuer-staging.yaml
+- ../base
+- issuer-staging.yaml
 
 patches:
-  - path: deployment.yaml
-    target:
-      kind: Deployment
-      name: moadong
-  - path: ingress.yaml
-    target:
-      kind: Ingress
-      name: moadong-ingress
-  - path: infisical-secret.yaml
-    target:
-      kind: InfisicalSecret
-      name: infisical-secret
+- path: deployment.yaml
+  target:
+    kind: Deployment
+    name: moadong
+- path: ingress.yaml
+  target:
+    kind: Ingress
+    name: moadong-ingress
+- path: infisical-secret.yaml
+  target:
+    kind: InfisicalSecret
+    name: infisical-secret
 
 images:
-  - name: moadong/moadong
-    newName: moadong/moadong-dev
-    newTag: 7d5965b
-  - name: moadong/moadong-dev
-    newName: moadong/moadong-dev
-    newTag: 136ced2
+- name: moadong/moadong
+  newName: moadong/moadong-dev
+  newTag: 7d5965b
+- name: moadong/moadong-dev
+  newName: moadong/moadong-dev
+  newTag: 7b0d19c
