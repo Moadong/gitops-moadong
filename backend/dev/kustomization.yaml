@@ -21,6 +21,9 @@ patches:
       name: infisical-secret
 
 images:
+  - name: moadong/moadong
+    newName: moadong/moadong-dev
+    newTag: 7d5965b
   - name: moadong/moadong-dev
     newName: moadong/moadong-dev
     newTag: 136ced2
