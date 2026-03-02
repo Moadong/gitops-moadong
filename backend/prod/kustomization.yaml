@@ -3,23 +3,20 @@ kind: Kustomization
 namespace: moadong
 
 resources:
-- ../base
-- issuer-prod.yaml
+  - ../base
+  - issuer-prod.yaml
 
 patches:
-- path: deployment.yaml
-  target:
-    kind: Deployment
-    name: moadong
-- path: ingress.yaml
-  target:
-    kind: Ingress
-    name: moadong-ingress
+  - path: deployment.yaml
+    target:
+      kind: Deployment
+      name: moadong
+  - path: ingress.yaml
+    target:
+      kind: Ingress
+      name: moadong-ingress
 
 images:
-- name: moadong/moadong
-  newName: moadong/moadong-release
-  newTag: latest
-- name: moadong/moadong-release
-  newName: moadong/moadong-release
-  newTag: v1.3.0
+  - name: moadong/moadong-release
+    newName: moadong/moadong-release
+    newTag: v1.3.0
