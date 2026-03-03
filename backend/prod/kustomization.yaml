@@ -15,6 +15,10 @@ patches:
     target:
       kind: Ingress
       name: moadong-ingress
+  - path: infisical-secret.yaml
+    target:
+      kind: InfisicalSecret
+      name: infisical-secret
 
 images:
   - name: moadong/moadong
