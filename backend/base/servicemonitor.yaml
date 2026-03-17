@@ -2,13 +2,9 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: moadong-service-monitor
-  namespace: monitoring
   labels:
     release: monitoring
 spec:
-  namespaceSelector:
-    matchNames:
-      - moadong
   selector:
     matchLabels:
       app: moadong
