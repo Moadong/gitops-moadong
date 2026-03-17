@@ -6,8 +6,8 @@ metadata:
   labels:
     app: moadong
   annotations:
-    notifications.argoproj.io/subscribe.on-sync-succeeded.discord: ""
-    notifications.argoproj.io/subscribe.on-sync-failed.discord: ""
+    notifications.argoproj.io/subscribe.on-sync-succeeded.discord-prod: ""
+    notifications.argoproj.io/subscribe.on-sync-failed.discord-prod: ""
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:

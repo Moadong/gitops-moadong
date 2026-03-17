@@ -3,21 +3,41 @@ kind: ConfigMap
 metadata:
   name: argocd-notifications-cm
 data:
-  service.webhook.discord: |
-    url: $DISCORD_WEBHOOK_URL
+  service.webhook.discord-dev: |
+    url: $DISCORD_WEBHOOK_URL_DEV
+    headers:
+      - name: Content-Type
+        value: application/json
+  service.webhook.discord-prod: |
+    url: $DISCORD_WEBHOOK_URL_PROD
     headers:
       - name: Content-Type
         value: application/json
   template.app-sync-succeeded: |
     webhook:
-      discord:
+      discord-dev:
         method: POST
         body: |
           {
-            "content": "✅ **Argo CD Sync Succeeded**",
+            "content": "✅ **[DEV] Argo CD Sync Succeeded**",
             "embeds": [{
               "title": "{{.app.metadata.name}}",
-              "description": "Application **{{.app.metadata.name}}** has successfully synced to revision **{{.app.status.sync.revision}}**.",
+              "description": "Application **{{.app.metadata.name}}** successfully synced.",
+              "color": 3066993,
+              "fields": [
+                { "name": "Project", "value": "{{.app.spec.project}}", "inline": true },
+                { "name": "Status", "value": "{{.app.status.sync.status}}", "inline": true }
+              ]
+            }]
+          }
+      discord-prod:
+        method: POST
+        body: |
+          {
+            "content": "✅ **[PROD] Argo CD Sync Succeeded**",
+            "embeds": [{
+              "title": "{{.app.metadata.name}}",
+              "description": "Application **{{.app.metadata.name}}** successfully synced.",
               "color": 3066993,
               "fields": [
                 { "name": "Project", "value": "{{.app.spec.project}}", "inline": true },
@@ -27,19 +47,26 @@ data:
           }
   template.app-sync-failed: |
     webhook:
-      discord:
+      discord-dev:
         method: POST
         body: |
           {
-            "content": "❌ **Argo CD Sync Failed**",
+            "content": "❌ **[DEV] Argo CD Sync Failed**",
             "embeds": [{
               "title": "{{.app.metadata.name}}",
-              "description": "Application **{{.app.metadata.name}}** sync has failed.",
-              "color": 15158588,
-              "fields": [
-                { "name": "Project", "value": "{{.app.spec.project}}", "inline": true },
-                { "name": "Status", "value": "{{.app.status.sync.status}}", "inline": true }
-              ]
+              "description": "Application **{{.app.metadata.name}}** sync failed.",
+              "color": 15158588
+            }]
+          }
+      discord-prod:
+        method: POST
+        body: |
+          {
+            "content": "❌ **[PROD] Argo CD Sync Failed**",
+            "embeds": [{
+              "title": "{{.app.metadata.name}}",
+              "description": "Application **{{.app.metadata.name}}** sync failed.",
+              "color": 15158588
             }]
           }
   trigger.on-sync-succeeded: |-
