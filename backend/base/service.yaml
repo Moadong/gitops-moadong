@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: moadong-service
+  labels:
+    app: moadong
 spec:
   selector:
     app: moadong
