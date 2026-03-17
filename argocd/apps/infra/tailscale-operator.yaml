@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://pkgs.tailscale.com/helm-charts
+    repoURL: https://pkgs.tailscale.com/helmcharts
     chart: tailscale-operator
-    targetRevision: 1.94.1
+    targetRevision: 1.94.2
     helm:
       releaseName: tailscale-operator
   destination:
