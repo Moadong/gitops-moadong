@@ -31,6 +31,8 @@ prometheus:
   service:
     type: NodePort
     nodePort: 30091
+    port: 80
+    targetPort: 9090
     annotations:
       tailscale.com/expose: "true"
       tailscale.com/hostname: prometheus
