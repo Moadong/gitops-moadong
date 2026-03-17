@@ -5,3 +5,4 @@ resources:
   - service.yaml
   - ingress.yaml
   - infisical-secret.yml
+  - servicemonitor.yaml
