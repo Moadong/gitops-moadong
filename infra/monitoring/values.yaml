@@ -30,6 +30,7 @@ grafana:
 prometheus:
   service:
     type: NodePort
+    nodePort: 30091
     annotations:
       tailscale.com/expose: "true"
       tailscale.com/hostname: prometheus
