@@ -28,6 +28,11 @@ grafana:
       tailscale.com/expose: "true"
       tailscale.com/hostname: grafana
 prometheus:
+  service:
+    type: NodePort
+    annotations:
+      tailscale.com/expose: "true"
+      tailscale.com/hostname: prometheus
   prometheusSpec:
     serviceMonitorSelectorNilUsesHelmValues: false
     serviceMonitorSelector: {}
