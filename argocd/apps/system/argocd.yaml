@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/Moadong/gitops-moadong.git
     targetRevision: HEAD
-    path: infra/argocd/v3.3.4/install.yaml
+    path: infra/argocd/v3.3.4
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
