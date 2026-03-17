@@ -1,0 +1,25 @@
+ingress:
+  enabled: false
+
+service:
+  ui:
+    type: NodePort
+    nodePort: 30080
+    annotations:
+      tailscale.com/expose: "true"
+      tailscale.com/hostname: longhorn
+
+defaultSettings:
+  defaultDataPath: /var/lib/longhorn
+  storageOverProvisioningPercentage: 200
+  storageMinimalAvailablePercentage: 15
+  upgradeChecker: false
+  defaultDataLocality: best-effort
+
+persistence:
+  defaultClass: true
+  defaultClassReplicaCount: 3
+
+metrics:
+  serviceMonitor:
+    enabled: true
