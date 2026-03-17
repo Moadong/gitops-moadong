@@ -7,12 +7,17 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-  source:
-    repoURL: https://pkgs.tailscale.com/helmcharts
-    chart: tailscale-operator
-    targetRevision: 1.94.2
-    helm:
-      releaseName: tailscale-operator
+  sources:
+    - repoURL: https://pkgs.tailscale.com/helmcharts
+      chart: tailscale-operator
+      targetRevision: 1.94.2
+      helm:
+        releaseName: tailscale-operator
+        valueFiles:
+          - $values/infra/tailscale-operator/values.yaml
+    - repoURL: https://github.com/Moadong/gitops-moadong.git
+      targetRevision: HEAD
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: tailscale
