@@ -37,14 +37,11 @@ data:
               ]
             }]
           }
-  trigger.on-sync-succeeded: |
+  trigger.on-sync-succeeded: |-
     - description: Application sync succeeded
       send: [app-sync-succeeded]
-      when: app.status.operationState.phase in ['Succeeded'] and app.metadata.labels['app'] == 'moadong'
-  trigger.on-sync-failed: |
+      when: app.status.operationState != nil and app.status.operationState.phase in ['Succeeded']
+  trigger.on-sync-failed: |-
     - description: Application sync failed
       send: [app-sync-failed]
-      when: app.status.operationState.phase in ['Error', 'Failed'] and app.metadata.labels['app'] == 'moadong'
-  subscriptions: |
-    - recipients: [webhook:discord]
-      triggers: [on-sync-succeeded, on-sync-failed]
+      when: app.status.operationState != nil and app.status.operationState.phase in ['Error', 'Failed']
