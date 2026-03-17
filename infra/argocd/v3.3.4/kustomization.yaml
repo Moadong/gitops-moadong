@@ -3,7 +3,6 @@ kind: Kustomization
 
 resources:
   - install.yaml
-  - notifications-cm.yaml
 
 patches:
   - path: argocd-tailscale-patch.yaml
