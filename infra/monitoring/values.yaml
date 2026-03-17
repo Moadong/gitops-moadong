@@ -24,6 +24,9 @@ grafana:
   service:
     nodePort: 30090
     type: NodePort
+    annotations:
+      tailscale.com/expose: "true"
+      tailscale.com/hostname: grafana
 prometheus:
   prometheusSpec:
     serviceMonitorSelectorNilUsesHelmValues: false
