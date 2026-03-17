@@ -3,6 +3,11 @@ kind: Application
 metadata:
   name: moadong-backend-dev
   namespace: argocd
+  labels:
+    app: moadong
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.webhook: discord
+    notifications.argoproj.io/subscribe.on-sync-failed.webhook: discord
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
