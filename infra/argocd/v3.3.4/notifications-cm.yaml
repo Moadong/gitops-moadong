@@ -30,7 +30,7 @@ data:
                 { "name": "브랜치",    "value": "`{{.app.spec.source.targetRevision}}`", "inline": true },
                 { "name": "프로젝트",   "value": "{{.app.spec.project}}", "inline": true },
                 { "name": "네임스페이스", "value": "{{.app.spec.destination.namespace}}", "inline": true },
-                { "name": "커밋 (Diff)", "value": "[`{{.app.status.sync.revision | trunc 8}}`]({{.app.spec.source.repoURL | trimSuffix \".git\"}}/commit/{{.app.status.sync.revision}})", "inline": true },
+                { "name": "커밋 (Diff)", "value": "[`{{.app.status.sync.revision | trunc 8}}`]({{.app.spec.source.repoURL | trimSuffix ".git"}}/commit/{{.app.status.sync.revision}})", "inline": true },
                 { "name": "상태",      "value": "{{.app.status.sync.status}} / {{.app.status.health.status}}", "inline": true },
                 { 
                   "name": "사용 이미지",
@@ -38,8 +38,8 @@ data:
                   "inline": false 
                 }
               ],
-              "footer": { "text": "ArgoCD • {{now | date \"2006-01-02 15:04 KST\"}}" },
-              "timestamp": "{{now | date \"2006-01-02T15:04:05Z\"}}"
+              "footer": { "text": "ArgoCD • {{now | date "2006-01-02 15:04 KST"}}" },
+              "timestamp": "{{now | date "2006-01-02T15:04:05Z"}}"
             }]
           }
       discord-prod:
@@ -57,7 +57,7 @@ data:
                 { "name": "브랜치",    "value": "`{{.app.spec.source.targetRevision}}`", "inline": true },
                 { "name": "프로젝트",   "value": "{{.app.spec.project}}", "inline": true },
                 { "name": "네임스페이스", "value": "{{.app.spec.destination.namespace}}", "inline": true },
-                { "name": "커밋 (Diff)", "value": "[`{{.app.status.sync.revision | trunc 8}}`]({{.app.spec.source.repoURL | trimSuffix \".git\"}}/commit/{{.app.status.sync.revision}})", "inline": true },
+                { "name": "커밋 (Diff)", "value": "[`{{.app.status.sync.revision | trunc 8}}`]({{.app.spec.source.repoURL | trimSuffix ".git"}}/commit/{{.app.status.sync.revision}})", "inline": true },
                 { "name": "상태",      "value": "{{.app.status.sync.status}} / {{.app.status.health.status}}", "inline": true },
                 { 
                   "name": "사용 이미지",
@@ -65,8 +65,8 @@ data:
                   "inline": false 
                 }
               ],
-              "footer": { "text": "ArgoCD • {{now | date \"2006-01-02 15:04 KST\"}}" },
-              "timestamp": "{{now | date \"2006-01-02T15:04:05Z\"}}"
+              "footer": { "text": "ArgoCD • {{now | date "2006-01-02 15:04 KST"}}" },
+              "timestamp": "{{now | date "2006-01-02T15:04:05Z"}}"
             }]
           }
   template.app-sync-failed: |
@@ -86,10 +86,10 @@ data:
                 { "name": "브랜치",    "value": "`{{.app.spec.source.targetRevision}}`", "inline": true },
                 { "name": "프로젝트",   "value": "{{.app.spec.project}}", "inline": true },
                 { "name": "상태",      "value": "{{.app.status.sync.status}}", "inline": true },
-                { "name": "커밋 (Link)", "value": "[`{{.app.status.sync.revision | trunc 8}}`]({{.app.spec.source.repoURL | trimSuffix \".git\"}}/commit/{{.app.status.sync.revision}})", "inline": true },
+                { "name": "커밋 (Link)", "value": "[`{{.app.status.sync.revision | trunc 8}}`]({{.app.spec.source.repoURL | trimSuffix ".git"}}/commit/{{.app.status.sync.revision}})", "inline": true },
                 { 
                   "name": "에러 메시지",
-                  "value": "{{.app.status.operationState.message | default \"상세 에러는 ArgoCD UI에서 확인\" | trunc 200}}",
+                  "value": "{{.app.status.operationState.message | default "상세 에러는 ArgoCD UI에서 확인" | trunc 200}}",
                   "inline": false 
                 },
                 { 
@@ -98,8 +98,8 @@ data:
                   "inline": false 
                 }
               ],
-              "footer": { "text": "ArgoCD • {{now | date \"2006-01-02 15:04 KST\"}}" },
-              "timestamp": "{{now | date \"2006-01-02T15:04:05Z\"}}"
+              "footer": { "text": "ArgoCD • {{now | date "2006-01-02 15:04 KST"}}" },
+              "timestamp": "{{now | date "2006-01-02T15:04:05Z"}}"
             }]
           }
       discord-prod:
@@ -117,10 +117,10 @@ data:
                 { "name": "브랜치",    "value": "`{{.app.spec.source.targetRevision}}`", "inline": true },
                 { "name": "프로젝트",   "value": "{{.app.spec.project}}", "inline": true },
                 { "name": "상태",      "value": "{{.app.status.sync.status}}", "inline": true },
-                { "name": "커밋 (Link)", "value": "[`{{.app.status.sync.revision | trunc 8}}`]({{.app.spec.source.repoURL | trimSuffix \".git\"}}/commit/{{.app.status.sync.revision}})", "inline": true },
+                { "name": "커밋 (Link)", "value": "[`{{.app.status.sync.revision | trunc 8}}`]({{.app.spec.source.repoURL | trimSuffix ".git"}}/commit/{{.app.status.sync.revision}})", "inline": true },
                 { 
                   "name": "에러 메시지",
-                  "value": "{{.app.status.operationState.message | default \"UI에서 자세히 확인해주세요\" | trunc 200}}",
+                  "value": "{{.app.status.operationState.message | default "UI에서 자세히 확인해주세요" | trunc 200}}",
                   "inline": false 
                 },
                 { 
@@ -129,8 +129,8 @@ data:
                   "inline": false 
                 }
               ],
-              "footer": { "text": "ArgoCD • {{now | date \"2006-01-02 15:04 KST\"}}" },
-              "timestamp": "{{now | date \"2006-01-02T15:04:05Z\"}}"
+              "footer": { "text": "ArgoCD • {{now | date "2006-01-02 15:04 KST"}}" },
+              "timestamp": "{{now | date "2006-01-02T15:04:05Z"}}"
             }]
           }
   trigger.on-sync-succeeded: |-
