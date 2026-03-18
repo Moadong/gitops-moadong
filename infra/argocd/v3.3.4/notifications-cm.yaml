@@ -34,7 +34,7 @@ data:
                 { "name": "상태",      "value": "{{.app.status.sync.status}} / {{.app.status.health.status}}", "inline": true },
                 { 
                   "name": "사용 이미지",
-                  "value": "{{if .app.status.summary.images}}{{range .app.status.summary.images}}- {{.}}\n{{else}}변경 없음{{end}}",
+                  "value": "{{if .app.status.summary.images}}{{range .app.status.summary.images}}- {{.}}\n{{end}}{{else}}변경 없음{{end}}",
                   "inline": false 
                 }
               ],
@@ -61,7 +61,7 @@ data:
                 { "name": "상태",      "value": "{{.app.status.sync.status}} / {{.app.status.health.status}}", "inline": true },
                 { 
                   "name": "사용 이미지",
-                  "value": "{{if .app.status.summary.images}}{{range .app.status.summary.images}}- {{. | trunc 60}}\n{{else}}변경 없음{{end}}",
+                  "value": "{{if .app.status.summary.images}}{{range .app.status.summary.images}}- {{. | trunc 60}}\n{{end}}{{else}}변경 없음{{end}}",
                   "inline": false 
                 }
               ],
@@ -94,7 +94,7 @@ data:
                 },
                 { 
                   "name": "사용 이미지",
-                  "value": "{{if .app.status.summary.images}}{{range .app.status.summary.images}}- {{.}}\n{{else}}없음{{end}}",
+                  "value": "{{if .app.status.summary.images}}{{range .app.status.summary.images}}- {{.}}\n{{end}}{{else}}없음{{end}}",
                   "inline": false 
                 }
               ],
@@ -125,7 +125,7 @@ data:
                 },
                 { 
                   "name": "사용 이미지",
-                  "value": "{{if .app.status.summary.images}}{{range .app.status.summary.images}}- {{.}}\n{{else}}없음{{end}}",
+                  "value": "{{if .app.status.summary.images}}{{range .app.status.summary.images}}- {{.}}\n{{end}}{{else}}없음{{end}}",
                   "inline": false 
                 }
               ],
