@@ -5,6 +5,6 @@ metadata:
   namespace: moadong
 spec:
   redirectRegex:
-    regex: "^https?://api.moadong.com/(swagger-ui|v3/api-docs)(.*)"
+    regex: "^https?://api.moadong.com/(swagger-ui|v3/api-docs|dev)(.*)"
     replacement: "https://api.moadong.com/"
     permanent: false
