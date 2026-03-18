@@ -3,18 +3,18 @@ kind: Ingress
 metadata:
   name: moadong-tailscale-ingress
   namespace: moadong
-  annotations:
-    tailscale.com/hostname: backend
 spec:
   ingressClassName: tailscale
+  tls:
+    - hosts:
+        - backend
   rules:
-    - host: backend.alpines-bebop.ts.net
-      http:
+    - http:
         paths:
-          - backend:
+          - path: /
+            pathType: Prefix
+            backend:
               service:
                 name: moadong-service
                 port:
                   number: 8080
-            path: /
-            pathType: Prefix
