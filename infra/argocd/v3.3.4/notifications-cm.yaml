@@ -19,30 +19,54 @@ data:
         method: POST
         body: |
           {
-            "content": "✅ **[DEV] Argo CD Sync Succeeded**",
+            "username": "ArgoCD 알림",
+            "avatar_url": "https://argo-cd.readthedocs.io/en/stable/assets/logo.png",
             "embeds": [{
-              "title": "{{.app.metadata.name}}",
-              "description": "Application **{{.app.metadata.name}}** successfully synced.",
-              "color": 3066993,
+              "title": "✅ DEV 배포 완료 - {{.app.metadata.name}}",
+              "description": "**{{.app.metadata.name}}** 애플리케이션이 성공적으로 동기화되었습니다.",
+              "color": 5763719,
               "fields": [
-                { "name": "Project", "value": "{{.app.spec.project}}", "inline": true },
-                { "name": "Status", "value": "{{.app.status.sync.status}}", "inline": true }
-              ]
+                { "name": "환경",      "value": "Development",     "inline": true },
+                { "name": "브랜치",    "value": "`{{.app.spec.source.targetRevision}}`", "inline": true },
+                { "name": "프로젝트",   "value": "{{.app.spec.project}}", "inline": true },
+                { "name": "네임스페이스", "value": "{{.app.spec.destination.namespace}}", "inline": true },
+                { "name": "커밋 (Diff)", "value": "[`{{.app.status.sync.revision | trunc 8}}`]({{.app.spec.source.repoURL | trimSuffix \".git\"}}/commit/{{.app.status.sync.revision}})", "inline": true },
+                { "name": "상태",      "value": "{{.app.status.sync.status}} / {{.app.status.health.status}}", "inline": true },
+                { 
+                  "name": "사용 이미지",
+                  "value": "{{if .app.status.summary.images}}{{range .app.status.summary.images}}- {{.}}\n{{else}}변경 없음{{end}}",
+                  "inline": false 
+                }
+              ],
+              "footer": { "text": "ArgoCD • {{now | date \"2006-01-02 15:04 KST\"}}" },
+              "timestamp": "{{now | date \"2006-01-02T15:04:05Z\"}}"
             }]
           }
       discord-prod:
         method: POST
         body: |
           {
-            "content": "✅ **[PROD] Argo CD Sync Succeeded**",
+            "username": "ArgoCD 알림",
+            "avatar_url": "https://argo-cd.readthedocs.io/en/stable/assets/logo.png",
             "embeds": [{
-              "title": "{{.app.metadata.name}}",
-              "description": "Application **{{.app.metadata.name}}** successfully synced.",
-              "color": 3066993,
+              "title": "🚀 PROD 배포 완료 - {{.app.metadata.name}}",
+              "description": "프로덕션 환경 **{{.app.metadata.name}}** 배포가 정상 완료되었습니다.",
+              "color": 5763719,
               "fields": [
-                { "name": "Project", "value": "{{.app.spec.project}}", "inline": true },
-                { "name": "Status", "value": "{{.app.status.sync.status}}", "inline": true }
-              ]
+                { "name": "환경",      "value": "Production",      "inline": true },
+                { "name": "브랜치",    "value": "`{{.app.spec.source.targetRevision}}`", "inline": true },
+                { "name": "프로젝트",   "value": "{{.app.spec.project}}", "inline": true },
+                { "name": "네임스페이스", "value": "{{.app.spec.destination.namespace}}", "inline": true },
+                { "name": "커밋 (Diff)", "value": "[`{{.app.status.sync.revision | trunc 8}}`]({{.app.spec.source.repoURL | trimSuffix \".git\"}}/commit/{{.app.status.sync.revision}})", "inline": true },
+                { "name": "상태",      "value": "{{.app.status.sync.status}} / {{.app.status.health.status}}", "inline": true },
+                { 
+                  "name": "사용 이미지",
+                  "value": "{{if .app.status.summary.images}}{{range .app.status.summary.images}}- {{. | trunc 60}}\n{{else}}변경 없음{{end}}",
+                  "inline": false 
+                }
+              ],
+              "footer": { "text": "ArgoCD • {{now | date \"2006-01-02 15:04 KST\"}}" },
+              "timestamp": "{{now | date \"2006-01-02T15:04:05Z\"}}"
             }]
           }
   template.app-sync-failed: |
@@ -51,22 +75,62 @@ data:
         method: POST
         body: |
           {
-            "content": "❌ **[DEV] Argo CD Sync Failed**",
+            "username": "ArgoCD 알림",
+            "avatar_url": "https://argo-cd.readthedocs.io/en/stable/assets/logo.png",
             "embeds": [{
-              "title": "{{.app.metadata.name}}",
-              "description": "Application **{{.app.metadata.name}}** sync failed.",
-              "color": 15158588
+              "title": "❌ DEV 배포 실패 - {{.app.metadata.name}}",
+              "description": "**{{.app.metadata.name}}** 동기화에 실패했습니다.\n즉시 확인 바랍니다.",
+              "color": 15548997,
+              "fields": [
+                { "name": "환경",      "value": "Development",     "inline": true },
+                { "name": "브랜치",    "value": "`{{.app.spec.source.targetRevision}}`", "inline": true },
+                { "name": "프로젝트",   "value": "{{.app.spec.project}}", "inline": true },
+                { "name": "상태",      "value": "{{.app.status.sync.status}}", "inline": true },
+                { "name": "커밋 (Link)", "value": "[`{{.app.status.sync.revision | trunc 8}}`]({{.app.spec.source.repoURL | trimSuffix \".git\"}}/commit/{{.app.status.sync.revision}})", "inline": true },
+                { 
+                  "name": "에러 메시지",
+                  "value": "{{.app.status.operationState.message | default \"상세 에러는 ArgoCD UI에서 확인\" | trunc 200}}",
+                  "inline": false 
+                },
+                { 
+                  "name": "사용 이미지",
+                  "value": "{{if .app.status.summary.images}}{{range .app.status.summary.images}}- {{.}}\n{{else}}없음{{end}}",
+                  "inline": false 
+                }
+              ],
+              "footer": { "text": "ArgoCD • {{now | date \"2006-01-02 15:04 KST\"}}" },
+              "timestamp": "{{now | date \"2006-01-02T15:04:05Z\"}}"
             }]
           }
       discord-prod:
         method: POST
         body: |
           {
-            "content": "❌ **[PROD] Argo CD Sync Failed**",
+            "username": "ArgoCD 알림",
+            "avatar_url": "https://argo-cd.readthedocs.io/en/stable/assets/logo.png",
             "embeds": [{
-              "title": "{{.app.metadata.name}}",
-              "description": "Application **{{.app.metadata.name}}** sync failed.",
-              "color": 15158588
+              "title": "🔥 PROD 배포 실패 - {{.app.metadata.name}}",
+              "description": "🚨 **프로덕션 환경** {{.app.metadata.name}} 배포 실패!",
+              "color": 15548997,
+              "fields": [
+                { "name": "환경",      "value": "Production",      "inline": true },
+                { "name": "브랜치",    "value": "`{{.app.spec.source.targetRevision}}`", "inline": true },
+                { "name": "프로젝트",   "value": "{{.app.spec.project}}", "inline": true },
+                { "name": "상태",      "value": "{{.app.status.sync.status}}", "inline": true },
+                { "name": "커밋 (Link)", "value": "[`{{.app.status.sync.revision | trunc 8}}`]({{.app.spec.source.repoURL | trimSuffix \".git\"}}/commit/{{.app.status.sync.revision}})", "inline": true },
+                { 
+                  "name": "에러 메시지",
+                  "value": "{{.app.status.operationState.message | default \"UI에서 자세히 확인해주세요\" | trunc 200}}",
+                  "inline": false 
+                },
+                { 
+                  "name": "사용 이미지",
+                  "value": "{{if .app.status.summary.images}}{{range .app.status.summary.images}}- {{.}}\n{{else}}없음{{end}}",
+                  "inline": false 
+                }
+              ],
+              "footer": { "text": "ArgoCD • {{now | date \"2006-01-02 15:04 KST\"}}" },
+              "timestamp": "{{now | date \"2006-01-02T15:04:05Z\"}}"
             }]
           }
   trigger.on-sync-succeeded: |-
