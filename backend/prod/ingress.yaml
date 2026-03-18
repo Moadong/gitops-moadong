@@ -4,6 +4,7 @@ metadata:
   name: moadong-ingress
   annotations:
     cert-manager.io/issuer: cloudflare-issuer-prod
+    traefik.ingress.kubernetes.io/router.middlewares: moadong-block-swagger@kubernetescrd
 spec:
   tls:
     - hosts:

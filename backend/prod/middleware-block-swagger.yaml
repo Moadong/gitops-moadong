@@ -1,0 +1,10 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: block-swagger
+  namespace: moadong
+spec:
+  redirectRegex:
+    regex: "^https?://api.moadong.com/(swagger-ui|v3/api-docs)(.*)"
+    replacement: "https://api.moadong.com/"
+    permanent: false

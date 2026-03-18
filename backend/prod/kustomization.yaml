@@ -5,6 +5,8 @@ namespace: moadong
 resources:
 - ../base
 - issuer-prod.yaml
+- middleware-block-swagger.yaml
+- tailscale-ingress.yaml
 
 patches:
 - path: deployment.yaml
