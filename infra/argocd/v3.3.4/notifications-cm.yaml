@@ -133,6 +133,60 @@ data:
               "timestamp": "{{now | date "2006-01-02T15:04:05Z"}}"
             }]
           }
+  template.app-health-degraded: |
+    webhook:
+      discord-dev:
+        method: POST
+        body: |
+          {
+            "username": "ArgoCD 알림",
+            "avatar_url": "https://argo-cd.readthedocs.io/en/stable/assets/logo.png",
+            "embeds": [{
+              "title": "⚠️ DEV 상태 이상 (Degraded) - {{.app.metadata.name}}",
+              "description": "**{{.app.metadata.name}}** 애플리케이션의 헬스 상태가 좋지 않습니다.",
+              "color": 16738657,
+              "fields": [
+                { "name": "환경",      "value": "Development",     "inline": true },
+                { "name": "브랜치",    "value": "`{{.app.spec.source.targetRevision}}`", "inline": true },
+                { "name": "프로젝트",   "value": "{{.app.spec.project}}", "inline": true },
+                { "name": "상태 (Sync/Health)", "value": "{{.app.status.sync.status}} / {{.app.status.health.status}}", "inline": true },
+                { "name": "커밋 (Link)", "value": "[`{{.app.status.sync.revision | trunc 8}}`]({{.app.spec.source.repoURL | trimSuffix ".git"}}/commit/{{.app.status.sync.revision}})", "inline": true },
+                { 
+                  "name": "에러 메시지",
+                  "value": "{{.app.status.health.message | default "상세 내용은 ArgoCD UI에서 확인" | trunc 200}}",
+                  "inline": false 
+                }
+              ],
+              "footer": { "text": "ArgoCD • {{now | date "2006-01-02 15:04 KST"}}" },
+              "timestamp": "{{now | date "2006-01-02T15:04:05Z"}}"
+            }]
+          }
+      discord-prod:
+        method: POST
+        body: |
+          {
+            "username": "ArgoCD 알림",
+            "avatar_url": "https://argo-cd.readthedocs.io/en/stable/assets/logo.png",
+            "embeds": [{
+              "title": "🚨 PROD 상태 이상 (Degraded) - {{.app.metadata.name}}",
+              "description": "프로덕션 환경 **{{.app.metadata.name}}** 서비스 상태가 위험합니다!",
+              "color": 16711680,
+              "fields": [
+                { "name": "환경",      "value": "Production",      "inline": true },
+                { "name": "브랜치",    "value": "`{{.app.spec.source.targetRevision}}`", "inline": true },
+                { "name": "프로젝트",   "value": "{{.app.spec.project}}", "inline": true },
+                { "name": "상태 (Sync/Health)", "value": "{{.app.status.sync.status}} / {{.app.status.health.status}}", "inline": true },
+                { "name": "커밋 (Link)", "value": "[`{{.app.status.sync.revision | trunc 8}}`]({{.app.spec.source.repoURL | trimSuffix ".git"}}/commit/{{.app.status.sync.revision}})", "inline": true },
+                { 
+                  "name": "에러 메시지",
+                  "value": "{{.app.status.health.message | default "UI에서 자세히 확인해주세요" | trunc 200}}",
+                  "inline": false 
+                }
+              ],
+              "footer": { "text": "ArgoCD • {{now | date "2006-01-02 15:04 KST"}}" },
+              "timestamp": "{{now | date "2006-01-02T15:04:05Z"}}"
+            }]
+          }
   trigger.on-sync-succeeded: |-
     - description: Application sync succeeded
       send: [app-sync-succeeded]
@@ -141,3 +195,7 @@ data:
     - description: Application sync failed
       send: [app-sync-failed]
       when: app.status.operationState != nil and app.status.operationState.phase in ['Error', 'Failed']
+  trigger.on-health-degraded: |-
+    - description: Application health state is degraded
+      send: [app-health-degraded]
+      when: app.status.health.status == 'Degraded'

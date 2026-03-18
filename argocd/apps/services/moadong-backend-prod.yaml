@@ -8,6 +8,7 @@ metadata:
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.discord-prod: ""
     notifications.argoproj.io/subscribe.on-sync-failed.discord-prod: ""
+    notifications.argoproj.io/subscribe.on-health-degraded.discord-prod: ""
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
