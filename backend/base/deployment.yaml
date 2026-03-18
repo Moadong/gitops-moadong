@@ -25,12 +25,26 @@ spec:
               port: 8082
             initialDelaySeconds: 5
             periodSeconds: 5
+          env:
+            - name: FIREBASE_CONFIG_PATH
+              value: "file:/app/secrets/firebase-key.json"
           envFrom:
             - secretRef:
                 name: moadong-managed-secret
+          volumeMounts:
+            - name: firebase-secret-volume
+              mountPath: "/app/secrets"
+              readOnly: true
           resources:
             requests:
               cpu: "100m"
               memory: "512Mi"
             limits:
               memory: "1Gi"
+      volumes:
+        - name: firebase-secret-volume
+          secret:
+            secretName: moadong-managed-secret
+            items:
+              - key: FIREBASE_JSON
+                path: firebase-key.json
