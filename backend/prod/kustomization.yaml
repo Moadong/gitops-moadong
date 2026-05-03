@@ -28,4 +28,4 @@ images:
   newTag: latest
 - name: moadong/moadong-release
   newName: moadong/moadong-release
-  newTag: v1.4.0
+  newTag: v1.5.0
