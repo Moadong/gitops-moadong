@@ -17,5 +17,5 @@ spec:
               key: api-token
         selector:
           dnsZones:
-            - "yourun.shop"
-            - "*.yourun.shop"
+            - "zepelown.shop"
+            - "*.zepelown.shop"
