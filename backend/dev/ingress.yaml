@@ -7,11 +7,11 @@ metadata:
 spec:
   tls:
     - hosts:
-        - "yourun.shop"
-        - "*.yourun.shop"
-      secretName: yourun-shop-tls-secret
+        - "zepelown.shop"
+        - "*.zepelown.shop"
+      secretName: zepelown-shop-tls-secret
   rules:
-    - host: yourun.shop
+    - host: zepelown.shop
       http:
         paths:
           - path: /
